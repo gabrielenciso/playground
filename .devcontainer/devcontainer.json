@@ -1,0 +1,26 @@
+{
+  "name": "${containerWorkspaceFolderBasename}",
+  "image": "thebearingedge/code-container",
+  "mounts": [
+    // persist postgres data
+    "target=/var/lib/postgresql",
+    // use docker socket
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+    // mount ssh config
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/dev/.ssh,type=bind",
+    // mount git config
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/dev/.gitconfig,type=bind"
+  ],
+  "appPort": [
+    3000, // node
+    5000, // flask
+    8081, // pgweb
+    35729 // livereload
+  ],
+  "extensions": [
+    "thebearingedge.lfz-code"
+  ],
+  "remoteUser": "vscode",
+  "containerUser": "vscode",
+  "postCreateCommand": "sh .devcontainer/post-create-command.sh"
+}
