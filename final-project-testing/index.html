@@ -9,19 +9,21 @@
 </head>
 <body class="bg-slate-50">
   <div class="flex justify-center items-center h-screen">
-    <h1 class="text-4xl font-bold underline text-clifford">Hello!</h1>
-    <div class="flex">
-      <div id="chat-box">
-        <ul id="messages"></ul>
-        <form id="form">
-          <input id="input" autocomplete="off">
-          <button>Send</button>
-        </form>
-      </div>
-      <div id="markers">
-        <table>
+    <div class="w-1/2">
+      <h1 class="text-4xl font-bold underline text-clifford w-full text-center">Hello!</h1>
+      <div class="flex">
+        <div id="chat-box" class="border border-black w-1/2">
+          <ul id="messages" class="h-48"></ul>
+          <form id="form" class="flex justify-around">
+            <input id="input" autocomplete="off" class="w-3/4">
+            <button>Send</button>
+          </form>
+        </div>
+        <div id="markers" class="border border-black w-1/2">
+          <table>
 
-        </table>
+          </table>
+        </div>
       </div>
     </div>
   </div>
