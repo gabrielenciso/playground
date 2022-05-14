@@ -10,23 +10,83 @@
 <body class="bg-slate-50">
   <div class="flex justify-center items-center h-screen">
     <div class="w-1/2">
-      <h1 class="text-4xl font-bold underline text-clifford w-full text-center">Hello!</h1>
+      <h1 class="text-4xl font-bold text-clifford w-full text-center">Testing Testing Testing</h1>
       <div class="flex">
         <div id="chat-box" class="border border-black w-1/2">
-          <ul id="messages" class="h-48"></ul>
+          <ul id="messages" class="h-96"></ul>
           <form id="form" class="flex justify-around">
             <input id="input" autocomplete="off" class="w-3/4">
             <button>Send</button>
           </form>
         </div>
         <div id="markers" class="border border-black w-1/2">
-          <table>
-
+          <table class="w-full h-full border-collapse border border-slate-400">
+            <tbody>
+              <tr>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+              </tr>
+              <tr>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+              </tr>
+              <tr>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+              </tr>
+              <tr>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+              </tr>
+              <tr>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+              </tr>
+              <tr>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+              </tr>
+              <tr>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+              </tr>
+              <tr>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+                <td class="border border-slate-400"></td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
-
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+  </script>
 </body>
 </html>
