@@ -106,6 +106,7 @@
     var messages = document.getElementById('messages');
     var form = document.getElementById('form');
     var input = document.getElementById('input');
+    var markers = document.getElementById('markers');
 
     // figure out how to make self message appear unique -> on right hand side
     // show names
@@ -118,7 +119,13 @@
       }
     });
 
-    // make event listener for chart to put blocks in
+    markers.addEventListener('click', event => {
+      console.log(event.target);
+      // if (event.tagName === 'TD') {
+      //   console.log('hello');
+      //   socket.emit('marking', event.target);
+      // }
+    });
 
     socket.on('chat message', message => {
       console.log('2');
@@ -127,6 +134,10 @@
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);
     });
+
+    // socket.on('marking', target => {
+    //   console.log('this is to mark');
+    // });
   </script>
 </body>
 </html>

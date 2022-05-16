@@ -15,6 +15,10 @@ io.on('connection', socket => {
     console.log('3');
     io.emit('chat message', message);
   });
+  // socket.on('marking', target => {
+  //   console.log('is this working');
+  //   io.emit('marking', target);
+  // });
 });
 
 server.listen(3000, () => {
