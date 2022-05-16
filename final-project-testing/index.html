@@ -107,6 +107,8 @@
     var form = document.getElementById('form');
     var input = document.getElementById('input');
 
+    // figure out how to make self message appear unique -> on right hand side
+    // show names
     form.addEventListener('submit', event => {
       event.preventDefault();
       if (input.value) {
@@ -115,6 +117,8 @@
         input.value = '';
       }
     });
+
+    // make event listener for chart to put blocks in
 
     socket.on('chat message', message => {
       console.log('2');
