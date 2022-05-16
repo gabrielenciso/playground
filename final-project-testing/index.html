@@ -111,11 +111,13 @@
       event.preventDefault();
       if (input.value) {
         socket.emit('chat message', input.value);
+        console.log('1');
         input.value = '';
       }
     });
 
     socket.on('chat message', message => {
+      console.log('2');
       var item = document.createElement('li');
       item.textContent = message;
       messages.appendChild(item);
