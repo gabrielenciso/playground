@@ -123,6 +123,8 @@
       if (event.target.tagName === 'TD') {
         console.log('from client');
         console.dir(event.target);
+        const dataSet = {};
+        dataSet.dataCol = event.target.attributes[0];
         socket.emit('marking', event.target);
       }
     });
