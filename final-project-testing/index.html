@@ -37,61 +37,61 @@
         <div id="markers" class="border border-black w-1/2">
           <table class="w-full h-full border-collapse border border-slate-400">
             <tbody>
-              <tr>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
+              <tr data-row="0">
+                <td class="border border-slate-400" data-col="0"></td>
+                <td class="border border-slate-400" data-col="1"></td>
+                <td class="border border-slate-400" data-col="2"></td>
+                <td class="border border-slate-400" data-col="3"></td>
+                <td class="border border-slate-400" data-col="4"></td>
               </tr>
-              <tr>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
+              <tr data-row="1">
+                <td class="border border-slate-400" data-col="0"></td>
+                <td class="border border-slate-400" data-col="1"></td>
+                <td class="border border-slate-400" data-col="2"></td>
+                <td class="border border-slate-400" data-col="3"></td>
+                <td class="border border-slate-400" data-col="4"></td>
               </tr>
-              <tr>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
+              <tr data-row="2">
+                <td class="border border-slate-400" data-col="0"></td>
+                <td class="border border-slate-400" data-col="1"></td>
+                <td class="border border-slate-400" data-col="2"></td>
+                <td class="border border-slate-400" data-col="3"></td>
+                <td class="border border-slate-400" data-col="4"></td>
               </tr>
-              <tr>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
+              <tr data-row="3">
+                <td class="border border-slate-400" data-col="0"></td>
+                <td class="border border-slate-400" data-col="1"></td>
+                <td class="border border-slate-400" data-col="2"></td>
+                <td class="border border-slate-400" data-col="3"></td>
+                <td class="border border-slate-400" data-col="4"></td>
               </tr>
-              <tr>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
+              <tr data-row="4">
+                <td class="border border-slate-400" data-col="0"></td>
+                <td class="border border-slate-400" data-col="1"></td>
+                <td class="border border-slate-400" data-col="2"></td>
+                <td class="border border-slate-400" data-col="3"></td>
+                <td class="border border-slate-400" data-col="4"></td>
               </tr>
-              <tr>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
+              <tr data-row="5">
+                <td class="border border-slate-400" data-col="0"></td>
+                <td class="border border-slate-400" data-col="1"></td>
+                <td class="border border-slate-400" data-col="2"></td>
+                <td class="border border-slate-400" data-col="3"></td>
+                <td class="border border-slate-400" data-col="4"></td>
               </tr>
-              <tr>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
+              <tr data-row="6">
+                <td class="border border-slate-400" data-col="0"></td>
+                <td class="border border-slate-400" data-col="1"></td>
+                <td class="border border-slate-400" data-col="2"></td>
+                <td class="border border-slate-400" data-col="3"></td>
+                <td class="border border-slate-400" data-col="4"></td>
               </tr>
-              <tr>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
-                <td class="border border-slate-400"></td>
+              <tr data-row="7">
+                <td class="border border-slate-400" data-col="0"></td>
+                <td class="border border-slate-400" data-col="1"></td>
+                <td class="border border-slate-400" data-col="2"></td>
+                <td class="border border-slate-400" data-col="3"></td>
+                <td class="border border-slate-400" data-col="4"></td>
               </tr>
             </tbody>
           </table>
@@ -120,24 +120,24 @@
     });
 
     markers.addEventListener('click', event => {
-      console.log(event.target);
-      // if (event.tagName === 'TD') {
-      //   console.log('hello');
-      //   socket.emit('marking', event.target);
-      // }
+      if (event.target.tagName === 'TD') {
+        console.log('from client');
+        console.dir(event.target);
+        socket.emit('marking', event.target);
+      }
     });
 
     socket.on('chat message', message => {
-      console.log('2');
       var item = document.createElement('li');
       item.textContent = message;
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);
     });
 
-    // socket.on('marking', target => {
-    //   console.log('this is to mark');
-    // });
+    socket.on('marking', target => {
+      console.log('sent from server to others');
+      console.log(target);
+    });
   </script>
 </body>
 </html>
