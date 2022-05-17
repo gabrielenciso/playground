@@ -124,8 +124,9 @@
         console.log('from client');
         console.dir(event.target);
         const dataSet = {};
-        dataSet.dataCol = event.target.attributes[0];
-        socket.emit('marking', event.target);
+        dataSet.dataRow = event.target.closest('tr').getAttribute('data-row');
+        dataSet.dataCol = event.target.getAttribute('data-col');
+        socket.emit('marking', dataSet);
       }
     });
 
@@ -136,9 +137,9 @@
       window.scrollTo(0, document.body.scrollHeight);
     });
 
-    socket.on('marking', target => {
+    socket.on('marking', dataSet => {
       console.log('sent from server to others');
-      console.log(target);
+      console.log(dataSet);
     });
   </script>
 </body>

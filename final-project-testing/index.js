@@ -15,10 +15,9 @@ io.on('connection', socket => {
     console.log('3');
     io.emit('chat message', message);
   });
-  socket.on('marking', target => {
+  socket.on('marking', dataSet => {
     console.log('sent to server');
-    console.log(target);
-    io.emit('marking', target);
+    io.emit('marking', dataSet);
   });
 });
 
