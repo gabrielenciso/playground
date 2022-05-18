@@ -122,7 +122,6 @@
     markers.addEventListener('click', event => {
       if (event.target.tagName === 'TD') {
         console.log('from client');
-        console.dir(event.target);
         const dataSet = {};
         dataSet.dataRow = event.target.closest('tr').getAttribute('data-row');
         dataSet.dataCol = event.target.getAttribute('data-col');
@@ -140,6 +139,28 @@
     socket.on('marking', dataSet => {
       console.log('sent from server to others');
       console.log(dataSet);
+      // make function
+      const rows = document.querySelectorAll('tr');
+      console.log(rows);
+      for (let i = 0; i < rows.length; i++) {
+        const currRow = rows[i].getAttribute('data-row');
+
+        if (currRow === dataSet.dataRow) {
+          console.log('match row');
+          const cols = rows[i].querySelectorAll('td');
+          console.log(cols);
+
+          for (let j = 0; j < cols.length; j++) {
+            const currCol = cols[j];
+            const currColNum = currCol.getAttribute('data-col');
+            if (currColNum === dataSet.dataCol) {
+              console.log('match column');
+              console.log(currCol);
+              currCol.className = 'border border-slate-400 bg-green-500';
+            }
+          }
+        }
+      }
     });
   </script>
 </body>
