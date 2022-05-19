@@ -12,11 +12,11 @@ app.get('/', (req, res) => {
 
 io.on('connection', socket => {
   socket.on('chat message', message => {
-    console.log('3');
     io.emit('chat message', message);
   });
+  // revieved from client
   socket.on('marking', dataSet => {
-    console.log('sent to server');
+    // from server sending to client
     io.emit('marking', dataSet);
   });
 });
