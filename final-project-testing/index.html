@@ -27,14 +27,14 @@
     <div class="w-1/2">
       <h1 class="text-4xl font-bold text-clifford w-full text-center">Testing Testing Testing</h1>
       <div class="flex">
-        <div id="chat-box" class="border border-black w-1/2">
+        <div id="chat-box" class="border border-black w-full hidden">
           <ul id="messages" class="h-96"></ul>
           <form id="form" class="flex justify-around">
             <input id="input" autocomplete="off" class="w-3/4">
             <button>Send</button>
           </form>
         </div>
-        <div id="markers" class="border border-black w-1/2">
+        <div id="markers" class="border border-black w-full h-96">
           <table class="w-full h-full border-collapse border border-slate-400">
             <tbody>
               <tr data-row="0">
@@ -97,6 +97,12 @@
           </table>
         </div>
       </div>
+      <div class="w-full">
+        <form id="newRoom">
+          <input type="text" name="meetingId" id="inputNewRoom" class="w-3/4 border border-slate-400">
+          <button type="submit" class="bg-red-500 rounded-md">Enter Room</button>
+        </form>
+      </div>
     </div>
   </div>
   <script src="/socket.io/socket.io.js"></script>
@@ -107,6 +113,9 @@
     var form = document.getElementById('form');
     var input = document.getElementById('input');
     var markers = document.getElementById('markers');
+    var newRoom = document.getElementById('newRoom');
+    var chatBox = document.getElementById('chat-box');
+    var inputNewRoom = document.getElementById('inputNewRoom');
 
     // figure out how to make self message appear unique -> on right hand side
     // show names
@@ -207,9 +216,19 @@
       }
     }
 
-    function deselectTime(dataSet) {
+    newRoom.addEventListener('submit', event => {
+      event.preventDefault();
+      console.log(inputNewRoom.value);
+      const roomName = inputNewRoom.value;
+      markers.className = 'border border-black w-full h-96 hidden';
+      chatBox.className = 'border border-black w-full';
+      socket.emit('join room', roomName);
+      event.target.reset();
+    });
 
-    }
+    socket.on('join room', roomName => {
+      console.log('joined: ', roomName);
+    });
   </script>
 </body>
 </html>
