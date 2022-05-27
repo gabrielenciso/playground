@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testing for final project</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messages>li {
+      padding: 0.5rem 1rem;
+    }
+
+    #messages>li:nth-child(odd) {
+      background: #efefef;
+    }
+  </style>
+</head>
+<body class="bg-slate-50">
+  <div class="flex justify-center items-center h-screen">
+    <div class="w-1/2">
+      <h1 class="text-4xl font-bold text-clifford w-full text-center">Testing Testing Testing</h1>
+      <div class="flex">
+        <div id="chat-box" class="border border-black w-full hidden">
+          <ul id="messages" class="h-96"></ul>
+          <form id="form" class="flex justify-around">
+            <input id="input" autocomplete="off" class="w-3/4">
+            <button>Send</button>
+          </form>
+        </div>
+        <div id="markers" class="border border-black w-full h-96">
+          <table class="w-full h-full border-collapse border border-slate-400">
+            <tbody>
+              <tr data-row="0">
+                <td class="border border-slate-400" data-col="0" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="1" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="2" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="3" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="4" data-mark="false"></td>
+              </tr>
+              <tr data-row="1">
+                <td class="border border-slate-400" data-col="0" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="1" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="2" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="3" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="4" data-mark="false"></td>
+              </tr>
+              <tr data-row="2">
+                <td class="border border-slate-400" data-col="0" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="1" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="2" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="3" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="4" data-mark="false"></td>
+              </tr>
+              <tr data-row="3">
+                <td class="border border-slate-400" data-col="0" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="1" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="2" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="3" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="4" data-mark="false"></td>
+              </tr>
+              <tr data-row="4">
+                <td class="border border-slate-400" data-col="0" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="1" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="2" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="3" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="4" data-mark="false"></td>
+              </tr>
+              <tr data-row="5">
+                <td class="border border-slate-400" data-col="0" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="1" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="2" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="3" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="4" data-mark="false"></td>
+              </tr>
+              <tr data-row="6">
+                <td class="border border-slate-400" data-col="0" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="1" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="2" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="3" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="4" data-mark="false"></td>
+              </tr>
+              <tr data-row="7">
+                <td class="border border-slate-400" data-col="0" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="1" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="2" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="3" data-mark="false"></td>
+                <td class="border border-slate-400" data-col="4" data-mark="false"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="w-full">
+        <form id="newRoom">
+          <input type="text" name="meetingId" id="inputNewRoom" class="w-3/4 border border-slate-400">
+          <button type="submit" class="bg-red-500 rounded-md">Enter Room</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    var messages = document.getElementById('messages');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    var markers = document.getElementById('markers');
+    var newRoom = document.getElementById('newRoom');
+    var chatBox = document.getElementById('chat-box');
+    var inputNewRoom = document.getElementById('inputNewRoom');
+
+    // figure out how to make self message appear unique -> on right hand side
+    // show names
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+    const state = {
+      selecting: false,
+      green: false
+    };
+
+    markers.addEventListener('mousedown', event => {
+      const dataSet = {};
+      dataSet.dataRow = event.target.closest('tr').getAttribute('data-row');
+      dataSet.dataCol = event.target.getAttribute('data-col');
+      dataSet.dataMark = event.target.getAttribute('data-mark');
+      // deal with switching data-mark true false --> here
+      if (dataSet.dataMark === 'false') {
+        state.green = false;
+      } else {
+        state.green = true;
+      }
+      handleDataMark(event.target);
+
+      // from client sending to server
+      socket.emit('marking', dataSet);
+      state.selecting = true;
+    });
+
+    markers.addEventListener('mouseup', event => {
+      state.selecting = false;
+    });
+
+    markers.addEventListener('mouseover', event => {
+      if (event.target.tagName === 'TD' && state.selecting === true) {
+        const dataSet = {};
+        dataSet.dataRow = event.target.closest('tr').getAttribute('data-row');
+        dataSet.dataCol = event.target.getAttribute('data-col');
+        dataSet.dataMark = event.target.getAttribute('data-mark');
+        handleDataMark(event.target);
+
+        // from client sending to server
+        socket.emit('marking', dataSet);
+      }
+    });
+
+    socket.on('chat message', message => {
+      var item = document.createElement('li');
+      item.textContent = message;
+      messages.appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    socket.on('marking', dataSet => {
+      console.log(dataSet);
+      // make function
+
+      selectTime(dataSet);
+    });
+
+    function handleDataMark(eventTarget) {
+      const element = eventTarget;
+      const markState = eventTarget.getAttribute('data-mark');
+      if (markState === 'false') {
+        element.setAttribute('data-mark', 'true');
+      } else {
+        element.setAttribute('data-mark', 'false');
+      }
+    }
+
+    function selectTime(dataSet) {
+      const rows = document.querySelectorAll('tr');
+      for (let i = 0; i < rows.length; i++) {
+        const currRow = rows[i].getAttribute('data-row');
+
+        if (currRow === dataSet.dataRow) {
+          const cols = rows[i].querySelectorAll('td');
+
+          for (let j = 0; j < cols.length; j++) {
+            const currCol = cols[j];
+            const currColNum = currCol.getAttribute('data-col');
+            if (currColNum === dataSet.dataCol) {
+              console.log(dataSet);
+              console.log(state.green);
+              if (state.green) {
+                currCol.className = 'border border-slate-400 bg-neutral-400';
+              } else {
+                currCol.className = 'border border-slate-400 bg-green-500';
+              }
+            }
+          }
+        }
+      }
+    }
+
+    newRoom.addEventListener('submit', event => {
+      event.preventDefault();
+      console.log(inputNewRoom.value);
+      const roomName = inputNewRoom.value;
+      markers.className = 'border border-black w-full h-96 hidden';
+      chatBox.className = 'border border-black w-full';
+      socket.emit('join room', roomName);
+      event.target.reset();
+    });
+
+    socket.on('join room', roomName => {
+      console.log('joined: ', roomName);
+    });
+  </script>
+</body>
+</html>
